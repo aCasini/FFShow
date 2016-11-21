@@ -11,16 +11,17 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
 
 
         <EditText
-            android:layout_width="290dp"
+            android:layout_width="294dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:hint="@string/search_label"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:id="@+id/filmText"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/labelFilm"
@@ -29,22 +30,14 @@
         <Button
 
             android:background="@android:drawable/ic_search_category_default"
-            android:layout_width="53dp"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="38dp"
             android:layout_marginTop="33dp"
             android:id="@+id/searchButton"
-            android:layout_below="@+id/filmText"
-            android:layout_centerHorizontal="true"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:onClick="searchFilms"
-            android:layout_row="0"
-            android:layout_column="1" />
+            android:layout_below="@+id/filmText">
+
+        </Button>
 
     </GridLayout>
-
-
-
-
-
-
 </RelativeLayout>

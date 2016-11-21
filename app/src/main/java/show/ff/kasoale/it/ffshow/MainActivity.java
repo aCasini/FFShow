@@ -18,7 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static Logger logger = Logger.getLogger("MainActivity");
     private CharSequence mTitle;
 
+    FloatingActionButton fabPlus, fabFilms, fabSeries;
+    Animation fabOpen, fabClose, fabClock, fabAntiClock;
+    boolean isOpen = false;
 
     final Context context = this;
 
@@ -51,13 +57,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
+        fabPlus = (FloatingActionButton) findViewById(R.id.fab);
+        fabFilms = (FloatingActionButton) findViewById(R.id.fab_films);
+        fabSeries = (FloatingActionButton) findViewById(R.id.fab_series);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        fabClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        fabAntiClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlock);
+
+        fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(isOpen){
+                    fabFilms.startAnimation(fabClose);
+                    fabSeries.startAnimation(fabClose);
+                    fabPlus.startAnimation(fabAntiClock);
+                    fabFilms.setClickable(false);
+                    fabSeries.setClickable(false);
+                    isOpen = false;
+                }else{
+                    fabFilms.startAnimation(fabOpen);
+                    fabSeries.startAnimation(fabOpen);
+                    fabPlus.startAnimation(fabClock);
+                    fabFilms.setClickable(true);
+                    fabSeries.setClickable(true);
+                    isOpen = true;
+                }
+                //Toast.makeText(MainActivity.this, "Would you like a coffee?", Toast.LENGTH_SHORT).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -68,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
     }
 
