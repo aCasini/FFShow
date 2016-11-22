@@ -12,7 +12,8 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp">
 
 
         <EditText
@@ -28,16 +29,25 @@
             android:layout_toEndOf="@+id/labelFilm" />
 
         <Button
-
             android:background="@android:drawable/ic_search_category_default"
             android:layout_width="44dp"
             android:layout_height="38dp"
             android:layout_marginTop="33dp"
             android:id="@+id/searchButton"
-            android:onClick="searchFilms"
+            android:onClick="searchStreamingMedia"
             android:layout_below="@+id/filmText">
 
         </Button>
+
+        <TextView
+            android:text="Searcdhing in Films Storeage ... "
+            android:visibility="invisible"
+            android:layout_width="284dp"
+            android:fontFamily="@string/search_label"
+            android:layout_height="46dp"
+            android:id="@+id/searchMode"
+            android:layout_row="1"
+            android:layout_column="0" />
 
     </GridLayout>
 </RelativeLayout>

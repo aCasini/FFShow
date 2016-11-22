@@ -34,6 +34,7 @@
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:visibility="invisible"
+        android:onClick="setSearchSeries"
         />
 
     <android.support.design.widget.FloatingActionButton
@@ -48,6 +49,7 @@
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:visibility="invisible"
+        android:onClick="setSearchFilms"
         />
 
     <android.support.design.widget.FloatingActionButton

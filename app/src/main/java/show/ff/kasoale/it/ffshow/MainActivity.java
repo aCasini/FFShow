@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -36,12 +37,14 @@ import java.util.logging.Logger;
 import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.engine.impl.FFClient;
+import show.ff.kasoale.it.ffshow.utils.SearchMode;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static Logger logger = Logger.getLogger("MainActivity");
     private CharSequence mTitle;
+    private String searchMode;
 
     FloatingActionButton fabPlus, fabFilms, fabSeries;
     Animation fabOpen, fabClose, fabClock, fabAntiClock;
@@ -100,7 +103,70 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void searchFilms(View view){
+    public void setSearchFilms(View view){
+        TextView searchingMode = (TextView) findViewById(R.id.searchMode);
+        searchingMode.setVisibility(View.VISIBLE);
+        searchingMode.setText("Search wiil be do on Films Storage ... ");
+        setSearchMode("FILMS");
+    }
+
+    public void setSearchSeries(View view){
+        TextView searchingMode = (TextView) findViewById(R.id.searchMode);
+        searchingMode.setVisibility(View.VISIBLE);
+        searchingMode.setText("Search wiil be do on Series TV Storage ... ");
+        setSearchMode("SERIES");
+    }
+
+
+    public void searchStreamingMedia(View view){
+        if(getSearchMode() == null
+                || getSearchMode().equals("")){
+            //TODO: open a popup
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            // set title
+            alertDialogBuilder.setTitle("Info Message");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("To start set a search mode, thanks !")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
+            return;
+        }else if(getSearchMode().equals("FILMS")){
+            searchFilms(view);
+        }else{
+            //TODO: open a popup
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            // set title
+            alertDialogBuilder.setTitle("Info Message");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Sorry, Will be implemented ASAP !")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show itll
+            alertDialog.show();
+            return;
+        }
+    }
+
+
+    private void searchFilms(View view){
         //Call the webservice in order to find the Film
         logger.info("Call the webSerive");
         EditText filmText = (EditText) findViewById(R.id.filmText);
@@ -255,5 +321,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void setSearchMode(String searchMode){
+        this.searchMode = searchMode;
+    }
+
+    public String getSearchMode(){
+        return this.searchMode;
+    }
+
 }
 
