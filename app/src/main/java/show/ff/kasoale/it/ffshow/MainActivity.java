@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     FloatingActionButton fabPlus, fabFilms, fabSeries;
     Animation fabOpen, fabClose, fabClock, fabAntiClock;
+    TextView serieTV_desc, film_desc;
     boolean isOpen = false;
 
     final Context context = this;
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fabClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
         fabAntiClock = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlock);
 
+        serieTV_desc = (TextView) findViewById(R.id.serieTV_desc);
+        film_desc = (TextView) findViewById(R.id.film_desc);
+
+
         fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     fabPlus.startAnimation(fabAntiClock);
                     fabFilms.setClickable(false);
                     fabSeries.setClickable(false);
+
+                    serieTV_desc.startAnimation(fabClose);
+                    serieTV_desc.setVisibility(View.INVISIBLE);
+                    film_desc.setVisibility(View.INVISIBLE);
+                    film_desc.startAnimation(fabClose);
                     isOpen = false;
                 }else{
                     fabFilms.startAnimation(fabOpen);
@@ -85,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     fabPlus.startAnimation(fabClock);
                     fabFilms.setClickable(true);
                     fabSeries.setClickable(true);
+
+                    serieTV_desc.setVisibility(View.VISIBLE);
+                    film_desc.setVisibility(View.VISIBLE);
+                    film_desc.startAnimation(fabOpen);
+                    serieTV_desc.startAnimation(fabOpen);
                     isOpen = true;
                 }
                 //Toast.makeText(MainActivity.this, "Would you like a coffee?", Toast.LENGTH_SHORT).show();

@@ -6,4 +6,6 @@
     
     <color name="fab1_color">#4CAF50</color>
     <color name="fab2_color">#2196F3</color>
+
+    <color name="setting_label">#dddddd</color>
 </resources>

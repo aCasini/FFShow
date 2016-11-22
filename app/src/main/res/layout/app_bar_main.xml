@@ -22,47 +22,87 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_series"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="180dp"
-        app:srcCompat="@drawable/ic_menu_slideshow"
-        android:backgroundTint="@color/fab1_color"
-        android:elevation="6dp"
-        app:pressedTranslationZ="12dp"
-        android:visibility="invisible"
-        android:onClick="setSearchSeries"
-        />
+        android:layout_gravity="bottom|end">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_films"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="100dp"
-        app:srcCompat="@drawable/ic_menu_slideshow"
-        android:backgroundTint="@color/fab2_color"
-        android:elevation="6dp"
-        app:pressedTranslationZ="12dp"
-        android:visibility="invisible"
-        android:onClick="setSearchFilms"
-        />
+        <TextView
+            android:background="@color/colorPrimaryDark"
+            android:alpha="128"
+            android:id="@+id/serieTV_desc"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Series TV"
+            android:textSize="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="75dp"
+            android:backgroundTint="@color/setting_label"
+            android:elevation="10dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/ic_menu_manage"
-        android:elevation="6dp"
-        app:pressedTranslationZ="12dp"
-        />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="180dp"
+            app:srcCompat="@drawable/ic_menu_slideshow"
+            android:backgroundTint="@color/fab1_color"
+            android:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:visibility="invisible"
+            android:onClick="setSearchSeries"
+            />
+
+        <TextView
+            android:id="@+id/film_desc"
+            android:background="@color/colorPrimaryDark"
+            android:alpha="128"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Films"
+            android:textSize="18dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginRight="65dp"
+            android:backgroundTint="@color/setting_label"
+            android:elevation="10dp"/>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_films"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="100dp"
+            app:srcCompat="@drawable/ic_menu_slideshow"
+            android:backgroundTint="@color/fab2_color"
+            android:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:visibility="invisible"
+            android:onClick="setSearchFilms"
+            />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            app:srcCompat="@drawable/ic_menu_manage"
+            android:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            />
+
+    </FrameLayout>
 
 
     <include layout="@layout/content_films" />
