@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.beans.Film;
+import show.ff.kasoale.it.ffshow.beans.SerieTV;
 
 /**
  * Created by kasoale on 05/11/2016.
@@ -36,6 +37,20 @@ public class Utilis {
         }
 
         return film;
+    }
+
+    public static SerieTV json2SerieTV(String jsonString){
+        ObjectMapper mapper = new ObjectMapper();
+
+        SerieTV serieTV = null;
+
+        try {
+            serieTV = mapper.readValue(jsonString, SerieTV.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  serieTV;
     }
 
     public static Film[] json2FilmList(String jsonString){

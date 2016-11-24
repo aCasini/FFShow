@@ -35,7 +35,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
+import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
+import show.ff.kasoale.it.ffshow.beans.SerieTV;
 import show.ff.kasoale.it.ffshow.engine.impl.FFClient;
 import show.ff.kasoale.it.ffshow.utils.SearchMode;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
@@ -158,6 +160,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if(getSearchMode().equals("FILMS")){
             searchFilms(view);
         }else{
+            searchSerie(view);
+            /*
             //TODO: open a popup
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             // set title
@@ -177,6 +181,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // show itll
             alertDialog.show();
             return;
+            */
+        }
+    }
+
+    private void searchSerie(View view){
+        logger.info("Call the webservice for Serie");
+        EditText serieText = (EditText) findViewById(R.id.filmText);
+
+        String serieName = serieText.getText().toString();
+
+        if(serieName != null && !serieName.equals("")){
+            logger.info("Looking Serie for ... " + serieName);
+
+            HashMap<String, String> queryParamsMap = new HashMap<>();
+            queryParamsMap.put("serieName", serieName.replace(" ", "+"));
+
+            //Invoke the webService
+            SendFeedBackSerieFFClient jobSerie = new SendFeedBackSerieFFClient();
+
+
+            try{
+                String asyncTaskResult = jobSerie.execute(queryParamsMap).get();
+                if(asyncTaskResult == null || asyncTaskResult.equals("")){
+                    logger.info("Ops, no Serie TV found");
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                    // set title
+                    alertDialogBuilder.setTitle("Info Message");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage("Ops, no Serie TV found !")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+                    return;
+                }
+                logger.info("ASYNC SERIE TV RESULT: "+asyncTaskResult);
+
+                SerieTV serieTV = Utilis.json2SerieTV(asyncTaskResult);
+
+                logger.info(serieTV.toString());
+                changeActivitySerie(view, serieTV);
+
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -188,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String filmName = filmText.getText().toString();
         if(filmName != null && !filmName.equals("")){
-            logger.info("Looking for ... "+ filmName);
+            logger.info("Looking Film for ... "+ filmName);
 
             HashMap<String, String> queryParamsMap = new HashMap<>();
             queryParamsMap.put("filmName", filmName.replace(" ", "+"));
@@ -271,10 +335,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(this, FilmsActivity.class);
         List<Film> films = Arrays.asList(filmList);
         intent.putExtra("FilmsList", (Serializable) films);
-        //TODO: set the values for the next activity
+        // set the values for the next activity
         startActivity(intent);
     }
 
+    private void changeActivitySerie(View view, SerieTV serieTV){
+        logger.info("Changing activity Serie");
+        Intent intent = new Intent(this, SerieTvActivity.class);
+        //List<Film> films = Arrays.asList(filmList);
+        intent.putExtra("SerieTV", (Serializable) serieTV);
+        // set the values for the next activity
+        startActivity(intent);
+    }
 
     /**
      * ADDED for the NAVIGATION Menu
