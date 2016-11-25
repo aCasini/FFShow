@@ -1,14 +1,11 @@
 package show.ff.kasoale.it.ffshow;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,25 +18,22 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
 import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
-import show.ff.kasoale.it.ffshow.engine.impl.FFClient;
-import show.ff.kasoale.it.ffshow.utils.SearchMode;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton fabPlus, fabFilms, fabSeries;
     Animation fabOpen, fabClose, fabClock, fabAntiClock;
     TextView serieTV_desc, film_desc;
+    ImageView serieTVImage;
     boolean isOpen = false;
 
     final Context context = this;
@@ -125,6 +120,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchingMode.setVisibility(View.VISIBLE);
         searchingMode.setText("Search wiil be do on Films Storage ... ");
         setSearchMode("FILMS");
+
+        fabFilms.startAnimation(fabClose);
+        fabSeries.startAnimation(fabClose);
+        fabPlus.startAnimation(fabAntiClock);
+        fabFilms.setClickable(false);
+        fabSeries.setClickable(false);
+
+        serieTV_desc.startAnimation(fabClose);
+        serieTV_desc.setVisibility(View.INVISIBLE);
+        film_desc.setVisibility(View.INVISIBLE);
+        film_desc.startAnimation(fabClose);
+        isOpen = false;
     }
 
     public void setSearchSeries(View view){
@@ -132,13 +139,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchingMode.setVisibility(View.VISIBLE);
         searchingMode.setText("Search wiil be do on Series TV Storage ... ");
         setSearchMode("SERIES");
+
+        fabFilms.startAnimation(fabClose);
+        fabSeries.startAnimation(fabClose);
+        fabPlus.startAnimation(fabAntiClock);
+        fabFilms.setClickable(false);
+        fabSeries.setClickable(false);
+
+        serieTV_desc.startAnimation(fabClose);
+        serieTV_desc.setVisibility(View.INVISIBLE);
+        film_desc.setVisibility(View.INVISIBLE);
+        film_desc.startAnimation(fabClose);
+        isOpen = false;
     }
 
 
     public void searchStreamingMedia(View view){
         if(getSearchMode() == null
                 || getSearchMode().equals("")){
-            //TODO: open a popup
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             // set title
             alertDialogBuilder.setTitle("Info Message");
@@ -161,27 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             searchFilms(view);
         }else{
             searchSerie(view);
-            /*
-            //TODO: open a popup
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-            // set title
-            alertDialogBuilder.setTitle("Info Message");
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage("Sorry, Will be implemented ASAP !")
-                    .setCancelable(false)
-                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-                            dialog.cancel();
-                        }
-                    });
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
-            // show itll
-            alertDialog.show();
-            return;
-            */
         }
     }
 
@@ -233,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SerieTV serieTV = Utilis.json2SerieTV(asyncTaskResult);
 
                 logger.info(serieTV.toString());
+
                 changeActivitySerie(view, serieTV);
 
             }catch (InterruptedException e) {
@@ -345,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //List<Film> films = Arrays.asList(filmList);
         intent.putExtra("SerieTV", (Serializable) serieTV);
         // set the values for the next activity
+
         startActivity(intent);
     }
 
