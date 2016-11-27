@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.MainActivity;
@@ -58,10 +59,19 @@ public class SerieTvActivity extends AppCompatActivity {
                 logger.info("You clicked on ... ");
                 logger.info(season.toString());
 
-                //TODO: more details
+                //TODO: more details change activity --> go to Episode List
+                changeActivityEpisodes(view, season);
+
             }
         });
 
+    }
+
+    public void changeActivityEpisodes(View view, Season season){
+        Intent intent = new Intent(this, SeasonActivity.class);
+        intent.putExtra("Season", (Serializable) season);
+
+        startActivity(intent);
     }
 
     public void showDetails(View view) {

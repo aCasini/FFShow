@@ -1,6 +1,7 @@
 package show.ff.kasoale.it.ffshow.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Season implements Serializable {
     private String seasonID;
     private String name;
     private String imageSeason;
-    private List<Episode> episodes;
+    private ArrayList<Episode> episodes;
 
     public String getName() {
         return name;
@@ -37,11 +38,11 @@ public class Season implements Serializable {
         this.seasonID = seasonID;
     }
 
-    public List<Episode> getEpisodes() {
+    public ArrayList<Episode> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<Episode> episodes) {
+    public void setEpisodes(ArrayList<Episode> episodes) {
         this.episodes = episodes;
     }
 

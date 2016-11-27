@@ -351,6 +351,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 + serieTV.getIdeatore() + "\n"
                 + serieTV.getProduzione() + "\n"
                 + serieTV.getCast();
+        infoSerie = infoSerie.replace("<b>", "");
+        infoSerie = infoSerie.replace("</b>", "");
+
         Utilis.setInfoSerie(infoSerie);
         startActivity(intent);
     }

@@ -30,7 +30,7 @@
 
         <ImageView
             android:layout_marginTop="60dp"
-            android:id="@+id/serieTV_image"
+            android:id="@+id/season_image_for_episodes"
             android:layout_width="match_parent"
             android:layout_height="200dp">
         </ImageView>
@@ -43,20 +43,10 @@
             android:stretchMode="columnWidth"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/seasonsList"
+            android:id="@+id/episodes_list"
             />
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_details"
-        android:onClick="showDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_menu_manage"
-        app:layout_anchor="@id/serieTV_image"
-        app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>
