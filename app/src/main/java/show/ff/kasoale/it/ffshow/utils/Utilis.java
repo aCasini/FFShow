@@ -17,6 +17,8 @@ public class Utilis {
 
     private static Logger logger = Logger.getLogger("Utils");
 
+    public static String infoSerie;
+
     public static Film json2Film(String jsonString){
         ObjectMapper mapper = new ObjectMapper();
 
@@ -87,5 +89,13 @@ public class Utilis {
         }
         logger.info("===================");
 
+    }
+
+    public static String getInfoSerie() {
+        return infoSerie;
+    }
+
+    public static void setInfoSerie(String infoSerie) {
+        Utilis.infoSerie = infoSerie;
     }
 }

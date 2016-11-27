@@ -34,6 +34,7 @@ import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
 import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
+import show.ff.kasoale.it.ffshow.popups.PopupSerieDetails;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -343,7 +344,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //List<Film> films = Arrays.asList(filmList);
         intent.putExtra("SerieTV", (Serializable) serieTV);
         // set the values for the next activity
-
+        String infoSerie = serieTV.getTitoloOriginale() + "\n"
+                + serieTV.getGenere() + "\n"
+                + serieTV.getAnno() + "\n"
+                + serieTV.getNazione() + "\n"
+                + serieTV.getIdeatore() + "\n"
+                + serieTV.getProduzione() + "\n"
+                + serieTV.getCast();
+        Utilis.setInfoSerie(infoSerie);
         startActivity(intent);
     }
 
@@ -414,6 +422,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public String getSearchMode(){
         return this.searchMode;
+    }
+
+    public void showDetails(View view){
+        startActivity(new Intent(MainActivity.this, PopupSerieDetails.class));
     }
 
 }
