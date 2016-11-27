@@ -7,9 +7,9 @@
 
     <TextView
         android:text="This is a POPUP WINDOWS"
-        android:gravity="center"
+        android:gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_centerHorizongit tal="true"
         android:id="@+id/serie_info" />
 </RelativeLayout>
