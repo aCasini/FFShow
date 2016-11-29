@@ -39,7 +39,7 @@
             android:numColumns="auto_fit"
             android:gravity="center"
             android:columnWidth="150dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/background_light"
             android:stretchMode="columnWidth"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

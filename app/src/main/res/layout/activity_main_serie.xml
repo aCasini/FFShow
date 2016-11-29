@@ -39,7 +39,7 @@
             android:numColumns="auto_fit"
             android:gravity="center"
             android:columnWidth="150dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/background_light"
             android:stretchMode="columnWidth"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -55,7 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_menu_manage"
+        android:src="@drawable/info"
+        android:elevation="16dp"
+        app:backgroundTint="@color/fab2_color"
         app:layout_anchor="@id/serieTV_image"
         app:layout_anchorGravity="bottom|right|end"/>
 
