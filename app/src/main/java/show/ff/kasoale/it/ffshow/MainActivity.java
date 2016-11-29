@@ -100,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     serieTV_desc.startAnimation(fabOpen);
                     isOpen = true;
                 }
-                //Toast.makeText(MainActivity.this, "Would you like a coffee?", Toast.LENGTH_SHORT).show();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -426,10 +424,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String getSearchMode(){
         return this.searchMode;
     }
-
+/**
     public void showDetails(View view){
         startActivity(new Intent(MainActivity.this, PopupSerieDetails.class));
     }
+ **/
 
 }
 

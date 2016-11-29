@@ -1,5 +1,8 @@
 package show.ff.kasoale.it.ffshow.actities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +24,7 @@ import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.Season;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
 import show.ff.kasoale.it.ffshow.popups.PopupSerieDetails;
+import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 /**
  * Created by kasoale on 24/11/2016.
@@ -75,6 +79,29 @@ public class SerieTvActivity extends AppCompatActivity {
     }
 
     public void showDetails(View view) {
-        startActivity(new Intent(SerieTvActivity.this, PopupSerieDetails.class));
+        // Open a DialogPop regarding the Serie TV information
+        Context context = view.getContext();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title
+        alertDialogBuilder.setTitle("Details Serie");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(Utilis.getInfoSerie())
+                .setCancelable(false)
+                .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+        //startActivity(new Intent(SerieTvActivity.this, PopupSerieDetails.class));
     }
 }
