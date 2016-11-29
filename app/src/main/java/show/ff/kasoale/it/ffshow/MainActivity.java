@@ -1,9 +1,11 @@
 package show.ff.kasoale.it.ffshow;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton fabPlus, fabFilms, fabSeries;
     Animation fabOpen, fabClose, fabClock, fabAntiClock;
     TextView serieTV_desc, film_desc;
+    ProgressBar progressBar;
+    ProgressDialog progressDialog;
+    private Handler handler = new Handler();
     ImageView serieTVImage;
     boolean isOpen = false;
 
@@ -55,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -154,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void searchStreamingMedia(View view){
+        final View viewFinal = view;
         if(getSearchMode() == null
                 || getSearchMode().equals("")){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -175,9 +186,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.show();
             return;
         }else if(getSearchMode().equals("FILMS")){
-            searchFilms(view);
+            progressDialog = ProgressDialog.show(this, "Loading FILMs", "Loading the Films ...");
+            progressDialog.show();
+
+            Thread thread = new Thread(){
+                public void run() {
+                    logger.info("Start the searching... for series");
+                    searchFilms(viewFinal);
+                    progressDialog.cancel();
+                }
+            };
+            thread.start();
         }else{
-            searchSerie(view);
+            progressDialog = ProgressDialog.show(this, "Loading Serie TV", "Loading the Series TV ...");
+            progressDialog.show();
+
+            Thread thread = new Thread(){
+                public void run() {
+                    logger.info("Start the searching... for series");
+                    searchSerie(viewFinal);
+                    progressDialog.cancel();
+                }
+            };
+            thread.start();
+
         }
     }
 
@@ -200,6 +232,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             try{
                 String asyncTaskResult = jobSerie.execute(queryParamsMap).get();
                 if(asyncTaskResult == null || asyncTaskResult.equals("")){
+                    if(progressDialog != null && progressDialog.isShowing()){
+                        progressDialog.cancel();
+                    }
                     logger.info("Ops, no Serie TV found");
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -260,6 +295,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             try {
                 String asyncTaskResult = job.execute(queryParamsMap).get();
                 if(asyncTaskResult == null || asyncTaskResult.equals("")){
+                    if(progressDialog != null && progressDialog.isShowing()){
+                        progressDialog.cancel();
+                    }
                     logger.info("Ops, no films found");
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
