@@ -43,16 +43,12 @@ import show.ff.kasoale.it.ffshow.utils.Utilis;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static Logger logger = Logger.getLogger("MainActivity");
-    private CharSequence mTitle;
     private String searchMode;
 
     FloatingActionButton fabPlus, fabFilms, fabSeries;
     Animation fabOpen, fabClose, fabClock, fabAntiClock;
     TextView serieTV_desc, film_desc;
-    ProgressBar progressBar;
     ProgressDialog progressDialog;
-    private Handler handler = new Handler();
-    ImageView serieTVImage;
     boolean isOpen = false;
 
     String result;
@@ -164,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void searchStreamingMedia(View view){
         final View viewFinal = view;
+
         if(getSearchMode() == null
                 || getSearchMode().equals("")){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -529,11 +526,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String getSearchMode(){
         return this.searchMode;
     }
-/**
-    public void showDetails(View view){
-        startActivity(new Intent(MainActivity.this, PopupSerieDetails.class));
-    }
- **/
+
 
 }
 
