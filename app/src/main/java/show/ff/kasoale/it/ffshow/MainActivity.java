@@ -192,8 +192,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Thread thread = new Thread(){
                 public void run() {
                     logger.info("Start the searching... for series");
-                    searchFilms(viewFinal);
+                    String result = searchFilms(viewFinal);
                     progressDialog.cancel();
+                    if(result == null){
+                        logger.info("Ops, no films found");
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                        // set title
+                        alertDialogBuilder.setTitle("Info Message");
+
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("Ops, no films found !")
+                                .setCancelable(false)
+                                .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+
+                        // show it
+                        alertDialog.show();
+                    }
+
                 }
             };
             thread.start();
@@ -277,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void searchFilms(View view){
+    private String searchFilms(View view){
         //Call the webservice in order to find the Film
         logger.info("Call the webSerive");
         EditText filmText = (EditText) findViewById(R.id.filmText);
@@ -298,6 +323,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if(progressDialog != null && progressDialog.isShowing()){
                         progressDialog.cancel();
                     }
+                    return null;
+                    /**
                     logger.info("Ops, no films found");
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -320,7 +347,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     // show it
                     alertDialog.show();
-                    return;
+                     **/
+
                 }
                 logger.info("ASYNC RESULT: "+asyncTaskResult);
 
@@ -332,10 +360,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 changeActivity(view, filmsList);
 
+                return "Films Found";
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                return null;
             } catch (ExecutionException e) {
                 e.printStackTrace();
+                return null;
             }
 
         }else{
@@ -361,6 +393,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // show it
             alertDialog.show();
+            return null;
         }
 
     }

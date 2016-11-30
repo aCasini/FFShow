@@ -17,7 +17,7 @@
         </ImageView>
 
         <TextView
-            android:textColor="#000"
+            android:textColor="#FFF"
             android:id="@+id/season_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

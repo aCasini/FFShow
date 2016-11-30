@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp">
 
 
         <EditText
-            android:layout_width="294dp"
+            android:layout_width="252dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
@@ -30,16 +30,18 @@
             android:layout_toRightOf="@+id/labelFilm"
             android:layout_toEndOf="@+id/labelFilm" />
 
-        <Button
-            android:background="@android:drawable/ic_search_category_default"
-            android:layout_width="44dp"
-            android:layout_height="38dp"
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_menu_send"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="start"
             android:layout_marginTop="33dp"
             android:id="@+id/searchButton"
             android:onClick="searchStreamingMedia"
+            app:pressedTranslationZ="12dp"
             android:layout_below="@+id/filmText">
 
-        </Button>
+        </android.support.design.widget.FloatingActionButton>
 
         <TextView
             android:text="Searcdhing in Films Storeage ... "

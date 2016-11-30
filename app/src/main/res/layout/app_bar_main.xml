@@ -28,18 +28,17 @@
         android:layout_gravity="bottom|end">
 
         <TextView
-            android:background="@color/colorPrimaryDark"
             android:alpha="128"
             android:id="@+id/serieTV_desc"
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:text="Series TV"
+            android:textColor="#FFF"
+            android:text="Set Series"
             android:textSize="18dp"
+            android:shadowColor="@color/fab1_color"
             android:layout_marginTop="15dp"
             android:layout_marginRight="75dp"
-            app:backgroundTint="@color/setting_label"
             android:elevation="10dp"/>
 
 
@@ -60,22 +59,23 @@
 
         <TextView
             android:id="@+id/film_desc"
-            android:background="@color/colorPrimaryDark"
             android:alpha="128"
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:text="Films"
+            android:textColor="#FFF"
+            android:text="Set Films"
+            android:shadowColor="@color/fab2_color"
+            android:shadowRadius="2"
             android:textSize="18dp"
             android:layout_marginTop="95dp"
             android:layout_marginRight="65dp"
-            app:backgroundTint="@color/setting_label"
             android:elevation="10dp"/>
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_films"
+            android:alpha="128"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -83,7 +83,7 @@
             android:layout_marginBottom="100dp"
             app:srcCompat="@drawable/ic_menu_slideshow"
             app:backgroundTint="@color/fab2_color"
-            android:elevation="6dp"
+            android:elevation="10dp"
             app:pressedTranslationZ="12dp"
             android:visibility="invisible"
             android:onClick="setSearchFilms"
@@ -108,14 +108,5 @@
     <include layout="@layout/content_films"
         android:id="@+id/include" />
 
-    <ProgressBar
-        android:layout_alignParentBottom="true"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="center_vertical|center_horizontal"
-        android:layout_gravity="center_vertical|center_horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>
