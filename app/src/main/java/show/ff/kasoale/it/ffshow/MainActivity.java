@@ -55,15 +55,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageView serieTVImage;
     boolean isOpen = false;
 
+    String result;
+
     final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -186,59 +185,156 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.show();
             return;
         }else if(getSearchMode().equals("FILMS")){
+            EditText filmText = (EditText) findViewById(R.id.filmText);
+            String filmName = filmText.getText().toString();
+
+            if(filmName == null || filmName.equals("")){
+                logger.info("ERROR: insert a value for the film");
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                // set title
+                alertDialogBuilder.setTitle("Info Message");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Insert a Film name to start the vision!")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+                return;
+            }
+
             progressDialog = ProgressDialog.show(this, "Loading FILMs", "Loading the Films ...");
             progressDialog.show();
+
 
             Thread thread = new Thread(){
                 public void run() {
                     logger.info("Start the searching... for series");
-                    String result = searchFilms(viewFinal);
+                    result = searchFilms(viewFinal);
                     progressDialog.cancel();
+
                     if(result == null){
-                        logger.info("Ops, no films found");
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                logger.info("Ops, no films found");
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(viewFinal.getContext());
 
-                        // set title
-                        alertDialogBuilder.setTitle("Info Message");
+                                // set title
+                                alertDialogBuilder.setTitle("Info Message");
 
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Ops, no films found !")
-                                .setCancelable(false)
-                                .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setMessage("Ops, no films found !")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
 
 
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
 
-                        // show it
-                        alertDialog.show();
+                                // show it
+                                alertDialog.show();
+                            }
+                        });
                     }
 
                 }
             };
             thread.start();
+
         }else{
-            progressDialog = ProgressDialog.show(this, "Loading Serie TV", "Loading the Series TV ...");
+            EditText serieText = (EditText) findViewById(R.id.filmText);
+            String serieName = serieText.getText().toString();
+
+            if(serieName == null || serieName.equals("")){
+                logger.info("ERROR: insert a value for the TV Serie");
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                // set title
+                alertDialogBuilder.setTitle("Info Message");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Insert a TV Serie name to start the vision!")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+                return;
+            }
+
+
+            progressDialog = ProgressDialog.show(this, "Loading TV Series", "Loading the TV Series ...");
             progressDialog.show();
 
             Thread thread = new Thread(){
                 public void run() {
                     logger.info("Start the searching... for series");
-                    searchSerie(viewFinal);
+                    result = searchSerie(viewFinal);
                     progressDialog.cancel();
+
+                    if(result == null){
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                logger.info("Ops, no TV Series found");
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                                // set title
+                                alertDialogBuilder.setTitle("Info Message");
+
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setMessage("Ops, no TV Series found !")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                // show it
+                                alertDialog.show();
+                            }
+                        });
+                    }
+
                 }
             };
             thread.start();
-
         }
     }
 
-    private void searchSerie(View view){
+    private String searchSerie(View view){
         logger.info("Call the webservice for Serie");
         EditText serieText = (EditText) findViewById(R.id.filmText);
 
@@ -260,29 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if(progressDialog != null && progressDialog.isShowing()){
                         progressDialog.cancel();
                     }
-                    logger.info("Ops, no Serie TV found");
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    // set title
-                    alertDialogBuilder.setTitle("Info Message");
-
-                    // set dialog message
-                    alertDialogBuilder
-                            .setMessage("Ops, no Serie TV found !")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-                    return;
+                    return null;
                 }
                 logger.info("ASYNC SERIE TV RESULT: "+asyncTaskResult);
 
@@ -292,12 +366,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 changeActivitySerie(view, serieTV);
 
+                return "Serie Found";
+
             }catch (InterruptedException e) {
                 e.printStackTrace();
+                return null;
             } catch (ExecutionException e) {
                 e.printStackTrace();
+                return null;
             }
 
+        }else{
+            return null;
         }
     }
 
@@ -324,30 +404,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         progressDialog.cancel();
                     }
                     return null;
-                    /**
-                    logger.info("Ops, no films found");
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                    // set title
-                    alertDialogBuilder.setTitle("Info Message");
-
-                    // set dialog message
-                    alertDialogBuilder
-                            .setMessage("Ops, no films found !")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-                     **/
 
                 }
                 logger.info("ASYNC RESULT: "+asyncTaskResult);
@@ -371,28 +427,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }else{
-            logger.info("ERROR: insert a value for the film");
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-            // set title
-            alertDialogBuilder.setTitle("Info Message");
-
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage("Insert a Film name to start the vision!")
-                    .setCancelable(false)
-                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
-            // show it
-            alertDialog.show();
             return null;
         }
 
