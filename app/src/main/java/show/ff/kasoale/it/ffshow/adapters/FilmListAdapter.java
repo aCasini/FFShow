@@ -47,7 +47,7 @@ public class FilmListAdapter extends ArrayAdapter<Film>{
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.activity_films, null, true);
+            convertView = layoutInflater.inflate(R.layout.grid_film, null, true);
 
         }
 

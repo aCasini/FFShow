@@ -31,7 +31,8 @@ public class FilmsActivity extends AppCompatActivity {
         logger.info("FilmsActivity Started");
 
         filmListView = (ListView) findViewById(R.id.filmListView);
-        FilmListAdapter filmListAdapter = new FilmListAdapter(getApplicationContext(), R.layout.activity_films, filmList);
+        //FilmListAdapter filmListAdapter = new FilmListAdapter(getApplicationContext(), R.layout.activity_films, filmList);
+        FilmListAdapter filmListAdapter = new FilmListAdapter(getApplicationContext(), R.layout.grid_film, filmList);
 
         filmListView.setAdapter(filmListAdapter);
 

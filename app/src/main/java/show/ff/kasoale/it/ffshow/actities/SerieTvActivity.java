@@ -63,7 +63,6 @@ public class SerieTvActivity extends AppCompatActivity {
                 logger.info("You clicked on ... ");
                 logger.info(season.toString());
 
-                //TODO: more details change activity --> go to Episode List
                 changeActivityEpisodes(view, season);
 
             }
