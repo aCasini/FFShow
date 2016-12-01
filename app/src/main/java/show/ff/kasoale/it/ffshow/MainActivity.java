@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -500,18 +502,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_manage) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-        } else if (id == R.id.nav_slideshow) {
+            // set title
+            alertDialogBuilder.setTitle("Information");
 
-        } else if (id == R.id.nav_manage) {
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(Html.fromHtml("The Stream Pockey App is an easy way to see:\n<br>"
+                            + " - <b><font color=#18ffff>TV Series</b>\n<br>"
+                            + " - <b><font color=#18ffff>Films</b>\n\n<br><br>"
+                            + "See all TV Series and Fils where and where you want.<br>"
+                            + "How ? it is simple, use the Streaming functionality Pocket App.\n<br><br>"
+                            + "Install a Player like \n<br> - <b><font color=#18ffff>VLC</b> \n<br> - <b><font color=#18ffff>FLV Player</b> \n<br> in order to watch the movies.\n\n<br><br>"
+                            +"Enjoy :-)"))
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
 
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            // Set up the input
+            final EditText suggest = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            suggest.setInputType(InputType.TYPE_CLASS_TEXT);
+            suggest.setHint("Your Suggestion here ");
+            suggest.setLines(5);
 
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            // set title
+            alertDialogBuilder.setTitle("Suggest Somethings!");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setCancelable(true)
+                    .setView(suggest)
+                    .setPositiveButton("Send",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            String to = "kasoale@gmail.com";
+                            String subject = "Stream Pocket Suggestion";
+                            String message = suggest.getText().toString();
+
+                            if(message != null && !message.equals("")) {
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+                                //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
+                                //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+                                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                                //need this to prompts email client only
+                                email.setType("message/rfc822");
+
+                                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+                            }
+
+                            dialog.cancel();
+                        }
+                    });
+
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

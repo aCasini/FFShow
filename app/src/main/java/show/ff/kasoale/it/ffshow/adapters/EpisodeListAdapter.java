@@ -54,7 +54,7 @@ public class EpisodeListAdapter extends ArrayAdapter<Episode> {
         Picasso.with(context).load(episodeImageUrl).into(episodeImage);
 
         convertView.setTag(convertView);
-        //TODO: implement the code here
+        
         return convertView;
     }
 

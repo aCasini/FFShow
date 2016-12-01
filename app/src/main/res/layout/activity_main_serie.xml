@@ -59,7 +59,6 @@
         android:clickable="true"
         android:src="@drawable/info"
         android:elevation="16dp"
-        app:backgroundTint="@color/fab2_color"
         app:layout_anchor="@id/serieTV_image"
         app:layout_anchorGravity="bottom|right|end"/>
 
