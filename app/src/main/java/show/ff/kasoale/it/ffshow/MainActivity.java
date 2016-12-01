@@ -446,15 +446,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //List<Film> films = Arrays.asList(filmList);
         intent.putExtra("SerieTV", (Serializable) serieTV);
         // set the values for the next activity
-        String infoSerie = serieTV.getTitoloOriginale() + "\n"
-                + serieTV.getGenere() + "\n"
-                + serieTV.getAnno() + "\n"
-                + serieTV.getNazione() + "\n"
-                + serieTV.getIdeatore() + "\n"
-                + serieTV.getProduzione() + "\n"
+        String infoSerie = serieTV.getTitoloOriginale() + "\n<br>"
+                + serieTV.getGenere() + "\n<br>"
+                + serieTV.getAnno() + "\n<br>"
+                + serieTV.getNazione() + "\n<br>"
+                + serieTV.getIdeatore() + "\n<br>"
+                + serieTV.getProduzione() + "\n<br>"
                 + serieTV.getCast();
-        infoSerie = infoSerie.replace("<b>", "");
-        infoSerie = infoSerie.replace("</b>", "");
+        infoSerie = infoSerie.replace("<b>", "<b><font color=#18ffff>");
+        //infoSerie = infoSerie.replace("</b>", "");
 
         Utilis.setInfoSerie(infoSerie);
         startActivity(intent);

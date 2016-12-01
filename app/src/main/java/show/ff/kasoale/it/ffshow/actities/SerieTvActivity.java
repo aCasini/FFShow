@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -87,7 +88,7 @@ public class SerieTvActivity extends AppCompatActivity {
 
         // set dialog message
         alertDialogBuilder
-                .setMessage(Utilis.getInfoSerie())
+                .setMessage(Html.fromHtml((Utilis.getInfoSerie())))
                 .setCancelable(false)
                 .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
