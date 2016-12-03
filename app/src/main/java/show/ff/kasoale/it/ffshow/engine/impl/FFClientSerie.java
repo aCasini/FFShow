@@ -20,7 +20,7 @@ import show.ff.kasoale.it.ffshow.engine.AbstractRESTfulClient;
 
 public class FFClientSerie extends AbstractRESTfulClient {
 
-    private final String HTTP_URL = "http://ec2-52-58-49-59.eu-central-1.compute.amazonaws.com:8080/serie";
+    private final String HTTP_URL = "https://ancient-tor-87034.herokuapp.com/serie";
     private HashMap<String, String> queryParametersMap;
 
     private static Logger logger = Logger.getLogger("FFClientSerie");
