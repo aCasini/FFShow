@@ -16,7 +16,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="48dp"
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+<!-- GRIP FOR GENERE -->
                     <GridLayout
                         android:id="@+id/grid_genere"
                         android:layout_width="match_parent"
@@ -73,26 +73,124 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:src="@drawable/ic_menu_camera"/>
+                            android:padding="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_label_outline_white_24dp"/>
 
-                        <TextView
-                            android:id="@+id/title"
-                            android:layout_width="match_parent"
+                        <GridLayout
+                            android:layout_width="314dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginTop="5dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#0bdede"
+                                android:text="Genere"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/film_genere"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                            />
+                        </GridLayout>
+
                     </GridLayout>
+<!-- GRIP FOR GENERE - FINE -->
 
-
-                    <TextView
-                        android:id="@+id/description"
+<!-- GRIP FOR ORIGINAL TITLE-->
+                    <GridLayout
+                        android:id="@+id/grid_original_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="5dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:padding="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_title_white_24dp"/>
+
+                        <GridLayout
+                            android:layout_width="305dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#0bdede"
+                                android:text="Titolo Originale"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/film_original_title"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                                />
+
+                        </GridLayout>
+                    </GridLayout>
+<!-- GRIP FOR ORIGINAL TITLE __  FINE -->
+
+
+<!-- GRIP FOR OVERVIEW-->
+            <GridLayout
+                android:id="@+id/grid_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:padding="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_directions_run_white_24dp"/>
+
+                <GridLayout
+                    android:layout_width="305dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#0bdede"
+                        android:text="Trama"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                    <TextView
+                        android:id="@+id/film_overview"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="290dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        />
+
+                </GridLayout>
+            </GridLayout>
+<!-- GRIP FOR OVERVIEW __  FINE -->
+
 
                 </GridLayout>
 <!--

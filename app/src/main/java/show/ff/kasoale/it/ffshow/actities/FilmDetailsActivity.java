@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -25,17 +26,26 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
     private ImageView posterImage;
     private Toolbar toolbar;
+    private TextView filmGenereTxt, filmOverviewTxt, filmOriginalTitleTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_detail);
 
+        //init component
+        filmGenereTxt = (TextView) findViewById(R.id.film_genere);
+        filmGenereTxt.setText("Action, Horror");
+        filmOverviewTxt = (TextView) findViewById(R.id.film_overview);
+        filmOriginalTitleTxt = (TextView) findViewById(R.id.film_original_title);
+
+
         Film film = (Film) getIntent().getSerializableExtra("Film");
         FilmDetail filmDetail = (FilmDetail) getIntent().getSerializableExtra("FilmDetail");
 
         if(filmDetail == null){
             //TODO: open popu no info available
+            logger.info("Film Details is NULL");
         }
 
         logger.info("*******");
@@ -49,6 +59,9 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(filmDetail.getTitle());
+
+        filmOverviewTxt.setText(filmDetail.getOverview());
+        filmOriginalTitleTxt.setText(filmDetail.getOriginalTitle());
 
 
 
