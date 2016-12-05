@@ -30,10 +30,8 @@ public class SendFeedBackFFClientFilmDetail extends AsyncTask<HashMap<String,Str
 
         String outJson = ffClientFilmDetial.invokeWS(queryParamsMap);
 
-        logger.info("**** "+outJson);
-
-        if(outJson.trim().equals("[]")){
-            return null;
+        if(outJson == null || outJson.trim().equals("[]")) {
+                return null;
         }
 
         return outJson;

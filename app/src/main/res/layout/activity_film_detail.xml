@@ -148,6 +148,89 @@
                     </GridLayout>
 <!-- GRIP FOR ORIGINAL TITLE __  FINE -->
 
+<!-- GRID FOR Release Date -->
+                    <GridLayout
+                        android:id="@+id/grid_release_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:padding="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_date_range_white_24dp"/>
+
+                        <GridLayout
+                            android:layout_width="305dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#0bdede"
+                                android:text="Data di Rilascio"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/film_release_date"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                                />
+
+                        </GridLayout>
+                    </GridLayout>
+<!-- GRID FOR Release Date- END -->
+
+<!-- GRID FOR Adult -->
+                    <GridLayout
+                        android:id="@+id/grid_adult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:padding="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_supervisor_account_white_24dp"/>
+
+                        <GridLayout
+                            android:layout_width="305dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#0bdede"
+                                android:text="Pubblico"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/film_adult"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                                />
+
+                        </GridLayout>
+                    </GridLayout>
+<!-- GRID FOR Adult - END -->
 
 <!-- GRIP FOR OVERVIEW-->
             <GridLayout
@@ -191,6 +274,47 @@
             </GridLayout>
 <!-- GRIP FOR OVERVIEW __  FINE -->
 
+<!-- GRIP Media Voto -->
+                    <GridLayout
+                        android:id="@+id/grid_media_voto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:padding="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_star_white_24dp"/>
+
+                        <GridLayout
+                            android:layout_width="305dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#0bdede"
+                                android:text="Media Voto"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+                            <TextView
+                                android:id="@+id/film_media_voto"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="300dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                                />
+
+                        </GridLayout>
+                    </GridLayout>
+<!-- GRIP Media Voto - END -->
 
                 </GridLayout>
 <!--
@@ -225,6 +349,17 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_play_film"
+        android:onClick="playMoview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_menu_send"
+        android:elevation="16dp"
+        app:layout_anchor="@id/collapsing_toolbar"
+        app:layout_anchorGravity="bottom|right|end"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
