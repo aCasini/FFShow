@@ -32,6 +32,8 @@ public class FFClientSerie extends AbstractRESTfulClient {
             url = new URL(wsURL);
 
             HttpURLConnection httpURLConnection = super.getHttpConnectio(url);
+            httpURLConnection.setConnectTimeout(5000);
+            httpURLConnection.setReadTimeout(60000);
             String jsonResponce;
 
             httpURLConnection.setRequestMethod("GET");
