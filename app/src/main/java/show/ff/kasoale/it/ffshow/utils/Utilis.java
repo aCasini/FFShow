@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.beans.Film;
+import show.ff.kasoale.it.ffshow.beans.FilmDetail;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
 
 /**
@@ -18,6 +19,29 @@ public class Utilis {
     private static Logger logger = Logger.getLogger("Utils");
 
     public static String infoSerie;
+
+    public static FilmDetail json2FilmDetail(String jsonString){
+        ObjectMapper mapper = new ObjectMapper();
+        FilmDetail filmDetail = null;
+
+        try {
+            filmDetail = mapper.readValue(jsonString, FilmDetail.class);
+        }catch (JsonMappingException ex) {
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+
+        return filmDetail;
+
+    }
 
     public static Film json2Film(String jsonString){
         ObjectMapper mapper = new ObjectMapper();

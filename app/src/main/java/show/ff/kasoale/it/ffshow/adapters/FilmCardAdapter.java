@@ -12,11 +12,19 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.R;
+import show.ff.kasoale.it.ffshow.SendFeedBackFFClientFilmDetail;
+import show.ff.kasoale.it.ffshow.actities.FilmDetailsActivity;
+import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
+import show.ff.kasoale.it.ffshow.beans.FilmDetail;
+import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 /**
  * Created by kasoale on 04/12/2016.
@@ -56,7 +64,7 @@ public class FilmCardAdapter extends RecyclerView.Adapter<FilmCardAdapter.FilmVi
         return films.size();
     }
 
-    public static class FilmViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class FilmViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
         ImageView imageFilm;
         TextView filmTitle;
         ArrayList<Film> films = new ArrayList<>();
@@ -75,13 +83,50 @@ public class FilmCardAdapter extends RecyclerView.Adapter<FilmCardAdapter.FilmVi
         public void onClick(View view) {
             int position = getAdapterPosition();
             Film film = films.get(position);
-            logger.info(film.toString());
+            logger.info("Clicked on FILM: "+film.getFilmName());
 
+            HashMap<String, String> mapQueryParam = new HashMap<String,String>();
+            mapQueryParam.put("filmName", film.getFilmName().replace(" ","+"));
+
+            SendFeedBackFFClientFilmDetail jobFilmDetail = new SendFeedBackFFClientFilmDetail();
+
+            try{
+                String asyncTaskResult = jobFilmDetail.execute(mapQueryParam).get();
+                logger.info("ASYNC FILM DETAIL: \n"+asyncTaskResult);
+                FilmDetail filmDetail = Utilis.json2FilmDetail(asyncTaskResult);
+
+                Intent intent = new Intent(context, FilmDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("FilmDetail", (Serializable) filmDetail);
+                intent.putExtra("Film", (Serializable) film);
+
+                context.startActivity(intent);
+
+
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+            /**
             Intent intent = new Intent(Intent.ACTION_VIEW);
 
             intent.setDataAndType(Uri.parse(film.getStreamingUrl()), "video/*");
             context.startActivity(intent);
-//            startActivity(Intent.createChooser(intent, "Complete action using"));
+             **/
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            int position = getAdapterPosition();
+            Film film = films.get(position);
+            logger.info("Clicked onLong --> FILM: "+film.getFilmName());
+
+            return false;
         }
     }
+
 }

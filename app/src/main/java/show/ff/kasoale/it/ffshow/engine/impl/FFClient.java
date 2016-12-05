@@ -64,6 +64,7 @@ public class FFClient extends AbstractRESTfulClient{
     }
 
     // convert InputStream to String
+    /**
     private static String getStringFromInputStream(InputStream is) {
 
         BufferedReader br = null;
@@ -92,5 +93,6 @@ public class FFClient extends AbstractRESTfulClient{
         return sb.toString();
 
     }
+     **/
 
 }

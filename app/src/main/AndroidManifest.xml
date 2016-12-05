@@ -23,6 +23,7 @@
         <activity android:name=".actities.SerieTvActivity" />
         <activity android:name=".actities.BaseActivity"/>
         <activity android:name=".actities.SeasonActivity"/>
+        <activity android:name=".actities.FilmDetailsActivity"/>
         <activity android:name=".popups.PopupSerieDetails"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
