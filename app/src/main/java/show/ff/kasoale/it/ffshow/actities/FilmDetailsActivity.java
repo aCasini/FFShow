@@ -19,6 +19,7 @@ import show.ff.kasoale.it.ffshow.R;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
 import show.ff.kasoale.it.ffshow.beans.Season;
+import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 /**
  * Created by acasini on 05/12/16.
@@ -51,7 +52,6 @@ public class FilmDetailsActivity extends AppCompatActivity {
 
         //init component
         filmGenereTxt = (TextView) findViewById(R.id.film_genere);
-        filmGenereTxt.setText("Action, Horror");
         filmOverviewTxt = (TextView) findViewById(R.id.film_overview);
         filmOriginalTitleTxt = (TextView) findViewById(R.id.film_original_title);
         filmReleadeDateTxt = (TextView) findViewById(R.id.film_release_date);
@@ -62,6 +62,12 @@ public class FilmDetailsActivity extends AppCompatActivity {
         Film film = (Film) getIntent().getSerializableExtra("Film");
         setStreamingURL(film.getStreamingUrl());
         FilmDetail filmDetail = (FilmDetail) getIntent().getSerializableExtra("FilmDetail");
+
+        String generi = "";
+        for (int genereID : filmDetail.getGenere()) {
+            generi = generi + Utilis.genereMap.get(genereID) + " - ";
+        }
+        generi = generi.substring(0,generi.length() - 2);
 
         if(filmDetail == null){
             logger.info("Film Details is NULL");
@@ -101,6 +107,7 @@ public class FilmDetailsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(filmDetail.getTitle());
 
+        filmGenereTxt.setText(generi);
         filmOverviewTxt.setText(filmDetail.getOverview());
         filmOriginalTitleTxt.setText(filmDetail.getOriginalTitle());
         filmReleadeDateTxt.setText(filmDetail.getReleaseDate());

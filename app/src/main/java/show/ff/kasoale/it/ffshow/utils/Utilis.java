@@ -4,6 +4,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.beans.Film;
@@ -19,6 +21,29 @@ public class Utilis {
     private static Logger logger = Logger.getLogger("Utils");
 
     public static String infoSerie;
+    public static Map<Integer,String> genereMap = new HashMap<>();
+
+    public static void initMap(){
+        genereMap.put(28, "Action");
+        genereMap.put(12, "Adventure");
+        genereMap.put(16, "Animation");
+        genereMap.put(35, "Comedy");
+        genereMap.put(80, "Crime");
+        genereMap.put(99, "Documentary");
+        genereMap.put(18, "Drama");
+        genereMap.put(10751, "Family");
+        genereMap.put(14, "Fantasy");
+        genereMap.put(36, "History");
+        genereMap.put(27, "Horror");
+        genereMap.put(10402, "Music");
+        genereMap.put(9648, "Mystery");
+        genereMap.put(10749, "Romance");
+        genereMap.put(878, "Science Fiction");
+        genereMap.put(10770, "TV Movie");
+        genereMap.put(53, "Thriller");
+        genereMap.put(10752, "War");
+        genereMap.put(37, "Western");
+    }
 
     public static FilmDetail json2FilmDetail(String jsonString){
         ObjectMapper mapper = new ObjectMapper();

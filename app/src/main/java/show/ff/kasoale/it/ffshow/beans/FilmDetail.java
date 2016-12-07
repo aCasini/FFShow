@@ -22,6 +22,17 @@ public class FilmDetail implements Serializable{
     private int popularity;
     private double voteAverage;
     private String posterPath;
+    private int[] genere;
+
+    @JsonProperty("genre_ids")
+    public int[] getGenere() {
+        return genere;
+    }
+
+    @JsonProperty("genre_ids")
+    public void setGenere(int[] genere) {
+        this.genere = genere;
+    }
 
     @JsonProperty("id")
     public int getId() {
