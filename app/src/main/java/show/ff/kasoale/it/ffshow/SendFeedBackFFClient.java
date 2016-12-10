@@ -33,7 +33,7 @@ public class SendFeedBackFFClient extends AsyncTask<HashMap<String,String>, Void
 
         logger.info("**** "+outJson);
 
-        if(outJson.trim().equals("[]")){
+        if(outJson == null || outJson.trim().equals("[]")) {
             return null;
         }
 

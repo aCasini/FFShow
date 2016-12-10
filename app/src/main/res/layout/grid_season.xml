@@ -1,31 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp">
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewSeason"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        card_view:cardCornerRadius="10dp"
+        app:cardBackgroundColor="#008484"
+        app:cardElevation="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp">
 
         <ImageView
             android:id="@+id/season_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:elevation="10dp">
-        </ImageView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            />
 
-        <TextView
-            android:textColor="#FFF"
-            android:id="@+id/season_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:layout_gravity="center|fill_horizontal"
-            android:layout_marginLeft="10dp">
-        </TextView>
-    </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-</LinearLayout>
+            <TextView
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#6000"
+                android:id="@+id/season_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#FFF"
+                android:visibility="visible"
+                android:layout_alignTop="@+id/season_image"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold|italic"
+                android:layout_gravity="bottom|fill_horizontal" />
+
+
+        </GridLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>

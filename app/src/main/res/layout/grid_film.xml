@@ -16,7 +16,6 @@
         card_view:cardCornerRadius="10dp"
         app:cardBackgroundColor="#008484"
         app:cardElevation="20dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp">
 

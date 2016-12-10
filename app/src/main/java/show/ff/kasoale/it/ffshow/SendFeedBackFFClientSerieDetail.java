@@ -7,16 +7,16 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import show.ff.kasoale.it.ffshow.engine.impl.FFClient;
-import show.ff.kasoale.it.ffshow.engine.impl.FFClientSerie;
+import show.ff.kasoale.it.ffshow.engine.impl.FFClientFilmDetail;
+import show.ff.kasoale.it.ffshow.engine.impl.FFClientSerieDetail;
 
 /**
- * Created by kasoale on 24/11/2016.
+ * Created by kasoale on 10/12/2016.
  */
 
-public class SendFeedBackSerieFFClient extends AsyncTask<HashMap<String,String>, Void, String> {
+public class SendFeedBackFFClientSerieDetail extends AsyncTask<HashMap<String,String>, Void, String> {
 
-    private static Logger logger = Logger.getLogger("SendFeedBackSerieFFClient");
+    private static Logger logger = Logger.getLogger("SendFeedBackFFClientSerieDetail");
     private ObjectMapper mapper;
 
     @Override
@@ -25,12 +25,10 @@ public class SendFeedBackSerieFFClient extends AsyncTask<HashMap<String,String>,
 
         HashMap<String, String> queryParamsMap = hashMaps[0];
 
-        FFClientSerie ffClientSerie = new FFClientSerie();
+        FFClientSerieDetail ffClientSerieDetial = new FFClientSerieDetail();
         logger.info("Invoking url ...");
 
-        String outJson = ffClientSerie.invokeWS(queryParamsMap);
-
-        logger.info("**** "+outJson);
+        String outJson = ffClientSerieDetial.invokeWS(queryParamsMap);
 
         if(outJson == null || outJson.trim().equals("[]")) {
             return null;
@@ -43,5 +41,4 @@ public class SendFeedBackSerieFFClient extends AsyncTask<HashMap<String,String>,
     protected void onPostExecute(String message) {
         //process message
     }
-
 }

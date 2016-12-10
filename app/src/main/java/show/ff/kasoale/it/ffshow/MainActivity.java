@@ -39,6 +39,7 @@ import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
 import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
+import show.ff.kasoale.it.ffshow.beans.SerieTvDetails;
 import show.ff.kasoale.it.ffshow.popups.PopupSerieDetails;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
@@ -325,6 +326,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 // show it
                                 alertDialog.show();
+                                return;
                             }
                         });
                     }
@@ -349,10 +351,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             //Invoke the webService
             SendFeedBackSerieFFClient jobSerie = new SendFeedBackSerieFFClient();
+            SendFeedBackFFClientSerieDetail jodSerieDetail = new SendFeedBackFFClientSerieDetail();
 
 
             try{
                 String asyncTaskResult = jobSerie.execute(queryParamsMap).get();
+                String asyncTaskResultDetail = jodSerieDetail.execute(queryParamsMap).get();
+
                 if(asyncTaskResult == null || asyncTaskResult.equals("")){
                     if(progressDialog != null && progressDialog.isShowing()){
                         progressDialog.cancel();
@@ -362,10 +367,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 logger.info("ASYNC SERIE TV RESULT: "+asyncTaskResult);
 
                 SerieTV serieTV = Utilis.json2SerieTV(asyncTaskResult);
+                SerieTvDetails serieTvDetails = Utilis.json2SerieTVDeetail(asyncTaskResultDetail);
 
-                logger.info(serieTV.toString());
 
-                changeActivitySerie(view, serieTV);
+                changeActivitySerie(view, serieTV, serieTvDetails);
 
                 return "Serie Found";
 
@@ -442,11 +447,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-    private void changeActivitySerie(View view, SerieTV serieTV){
+    private void changeActivitySerie(View view, SerieTV serieTV, SerieTvDetails serieTvDetails){
         logger.info("Changing activity Serie");
         Intent intent = new Intent(this, SerieTvActivity.class);
         //List<Film> films = Arrays.asList(filmList);
         intent.putExtra("SerieTV", (Serializable) serieTV);
+        intent.putExtra("SerieTVDetaila", (Serializable) serieTvDetails);
+
         // set the values for the next activity
         String infoSerie = serieTV.getTitoloOriginale() + "\n<br>"
                 + serieTV.getGenere() + "\n<br>"

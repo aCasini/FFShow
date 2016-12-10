@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
+import show.ff.kasoale.it.ffshow.beans.SerieTvDetails;
 
 /**
  * Created by kasoale on 05/11/2016.
@@ -102,6 +103,20 @@ public class Utilis {
         }
 
         return  serieTV;
+    }
+
+    public static SerieTvDetails json2SerieTVDeetail(String jsonString){
+        ObjectMapper mapper = new ObjectMapper();
+
+        SerieTvDetails serieTVDetails = null;
+
+        try {
+            serieTVDetails = mapper.readValue(jsonString, SerieTvDetails.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  serieTVDetails;
     }
 
     public static Film[] json2FilmList(String jsonString){
