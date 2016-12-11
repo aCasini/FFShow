@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -62,6 +63,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(!isNetworkConnected()){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            // set title
+            alertDialogBuilder.setTitle("Info Message");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Internet Connection is absent, Stream Pocket will not work !")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
+            return;
+        }
 
         Utilis.initMap();
 
@@ -600,6 +622,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return this.searchMode;
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
 
 }
 
