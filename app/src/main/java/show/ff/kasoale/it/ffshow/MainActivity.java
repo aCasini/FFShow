@@ -547,10 +547,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             + "See all TV Series and Fils where and where you want.<br>"
                             + "How ? it is simple, use the Streaming functionality Pocket App.\n<br><br>"
                             + "Install a Player like \n<br> - <b><font color=#18ffff>VLC</b> \n<br> - <b><font color=#18ffff>FLV Player</b> \n<br> in order to watch the movies.\n\n<br><br>"
-                            +"Enjoy :-)"))
+                            + "Enjoy :-)"))
                     .setCancelable(false)
-                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
@@ -561,8 +561,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // show it
             alertDialog.show();
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_top_rated_films) {
+            //TODO: show the top rated films
+        } else if (id == R.id.nav_top_popular_films) {
+            //TODO: show the most popular films
+        } else if (id == R.id.nav_top_now_playing_films) {
+            //TODO: show now playing films
+        } else if(id == R.id.nav_top_now_upcoming_films_films){
+            //TODO: show upcoming films
         } else if (id == R.id.nav_send) {
             // Set up the input
             final EditText suggest = new EditText(this);

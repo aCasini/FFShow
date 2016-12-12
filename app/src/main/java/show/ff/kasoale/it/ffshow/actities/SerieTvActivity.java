@@ -74,7 +74,9 @@ public class SerieTvActivity extends AppCompatActivity {
 
 
         String cast = serieTV.getCast();
-        serieCastTxt.setText(cast.replace("<b>CAST:</b>",""));
+        if(cast != null) {
+            serieCastTxt.setText(cast.replace("<b>CAST:</b>", ""));
+        }
 
 
 

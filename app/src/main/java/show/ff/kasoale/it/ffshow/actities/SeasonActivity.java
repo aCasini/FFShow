@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -29,12 +30,18 @@ public class SeasonActivity extends AppCompatActivity {
     private static Logger logger = Logger.getLogger("SeasonActivity");
     private ListView episodesListView;
 
+    private Toolbar toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_episode);
 
         Season season = (Season) getIntent().getSerializableExtra("Season");
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(season.getName());
 
         ImageView episodeImage = (ImageView) findViewById(R.id.season_image_for_episodes);
         String episodeImageURL = season.getImageSeason();

@@ -7,9 +7,21 @@
             android:icon="@drawable/info_button"
             android:title="Information" />
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="Share" />
+            android:id="@+id/nav_top_rated_films"
+            android:icon="@drawable/ic_star_white_24dp"
+            android:title="Top Rated" />
+        <item
+            android:id="@+id/nav_top_popular_films"
+            android:icon="@drawable/ic_whatshot_white_24dp"
+            android:title="Most Popular" />
+        <item
+            android:id="@+id/nav_top_now_playing_films"
+            android:icon="@drawable/ic_recent_actors_white_24dp"
+            android:title="Now Playng" />
+        <item
+            android:id="@+id/nav_top_now_upcoming_films_films"
+            android:icon="@drawable/ic_date_range_white_24dp"
+            android:title="Coming Soon" />
         <item
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_menu_send"
