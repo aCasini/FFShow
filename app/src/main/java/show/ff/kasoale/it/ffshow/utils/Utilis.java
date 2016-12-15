@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
+import show.ff.kasoale.it.ffshow.beans.FilmDetailsList;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
 import show.ff.kasoale.it.ffshow.beans.SerieTvDetails;
 
@@ -117,6 +118,28 @@ public class Utilis {
         }
 
         return  serieTVDetails;
+    }
+
+    public static FilmDetailsList json2FilmDetailsList(String jsonString){
+        ObjectMapper mapper = new ObjectMapper();
+
+        FilmDetailsList filmDetailsList = null;
+        try{
+            filmDetailsList = mapper.readValue(jsonString, FilmDetailsList.class);
+        }catch (JsonMappingException ex) {
+            ex.printStackTrace();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+
+        return filmDetailsList;
     }
 
     public static Film[] json2FilmList(String jsonString){

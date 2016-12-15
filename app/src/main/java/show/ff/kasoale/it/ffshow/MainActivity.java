@@ -30,15 +30,20 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.actities.FilmsActivity;
+import show.ff.kasoale.it.ffshow.actities.FilmsTopRatedActivity;
 import show.ff.kasoale.it.ffshow.actities.SerieTvActivity;
 import show.ff.kasoale.it.ffshow.beans.Film;
+import show.ff.kasoale.it.ffshow.beans.FilmDetail;
+import show.ff.kasoale.it.ffshow.beans.FilmDetailsList;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
 import show.ff.kasoale.it.ffshow.beans.SerieTvDetails;
 import show.ff.kasoale.it.ffshow.popups.PopupSerieDetails;
@@ -530,6 +535,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -563,6 +569,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.show();
         } else if (id == R.id.nav_top_rated_films) {
             //TODO: show the top rated films
+            Thread threadTopRatedFilms = new Thread() {
+                public void run() {
+                    SendFeedBackFFClientFilmsTopRated job = new SendFeedBackFFClientFilmsTopRated();
+
+                    try {
+                        HashMap<String, String> map = new HashMap<>();
+                        String asyncTaskResult = job.execute(map).get();
+                        if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.cancel();
+                            }
+                        }
+
+                        FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
+
+                        ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                        for (FilmDetail film : filmsTopRated) {
+                            logger.info(film.toString());
+                        }
+
+                        //TODO: change activity
+                        logger.info("Changing activity to Top Rated");
+                        Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                        intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                        // set the values for the next activity
+                        startActivity(intent);
+
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            threadTopRatedFilms.start();
+
         } else if (id == R.id.nav_top_popular_films) {
             //TODO: show the most popular films
         } else if (id == R.id.nav_top_now_playing_films) {
