@@ -3,8 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="370dp"
+    android:layout_height="190dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/film_toprated_card"
@@ -18,8 +18,8 @@
         android:layout_marginTop="12dp">
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="300dp"
+            android:layout_height="180dp">
 
             <ImageView
                 android:id="@+id/filmImage_toprated"

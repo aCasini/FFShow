@@ -14,6 +14,7 @@ import show.ff.kasoale.it.ffshow.adapters.FilmCardAdapter;
 import show.ff.kasoale.it.ffshow.adapters.FilmCardAdapterTopRated;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
+import show.ff.kasoale.it.ffshow.beans.FilmDetailsList;
 
 /**
  * Created by kasoale on 13/12/2016.
@@ -33,7 +34,9 @@ public class FilmsTopRatedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_rated_films);
-        ArrayList<FilmDetail> filmList = (ArrayList<FilmDetail>) getIntent().getSerializableExtra("FilmDetailList");
+        ArrayList<FilmDetail> filmList = null;
+        FilmDetailsList filmDetailsList = (FilmDetailsList) getIntent().getSerializableExtra("FilmDetailList");
+        filmList = filmDetailsList.getFilmsDetails();
 
         logger.info("FilmsActivity Started");
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.R;
@@ -59,15 +60,21 @@ public class FilmDetailsActivity extends AppCompatActivity {
         filmMediaVotoTxt = (TextView) findViewById(R.id.film_media_voto);
 
 
-        Film film = (Film) getIntent().getSerializableExtra("Film");
-        setStreamingURL(film.getStreamingUrl());
+        if(getIntent().getSerializableExtra("Film").getClass().equals(Film.class)) {
+            Film film = (Film) getIntent().getSerializableExtra("Film");
+            setStreamingURL(film.getStreamingUrl());
+        }
+
         FilmDetail filmDetail = (FilmDetail) getIntent().getSerializableExtra("FilmDetail");
 
         String generi = "";
         for (int genereID : filmDetail.getGenere()) {
             generi = generi + Utilis.genereMap.get(genereID) + " - ";
         }
-        generi = generi.substring(0,generi.length() - 2);
+
+        if(generi.length() > 2) {
+            generi = generi.substring(0, generi.length() - 2);
+        }
 
         if(filmDetail == null){
             logger.info("Film Details is NULL");
