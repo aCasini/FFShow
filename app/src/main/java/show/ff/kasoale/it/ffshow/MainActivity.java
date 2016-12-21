@@ -568,7 +568,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // show it
             alertDialog.show();
         } else if (id == R.id.nav_top_rated_films) {
-            //TODO: show the top rated films
+            progressDialog = ProgressDialog.show(this, "Loading Top Rated", "Loading the Top Rated Films ...");
+            progressDialog.show();
+/**
+            Thread thread = new Thread() {
+                public void run() {
+                    logger.info("Loading the Top Rated Films ... wait ... ");
+                    progressDialog.cancel();
+
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+                }
+            };
+**/
+
             Thread threadTopRatedFilms = new Thread() {
                 public void run() {
                     SendFeedBackFFClientFilmsTopRated job = new SendFeedBackFFClientFilmsTopRated();
@@ -582,6 +599,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         }
 
+                        //**
+                        progressDialog.cancel();
+
                         FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
 
                         ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
@@ -589,7 +609,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             logger.info(film.toString());
                         }
 
-                        //TODO: change activity
                         logger.info("Changing activity to Top Rated");
                         Intent intent = new Intent(context, FilmsTopRatedActivity.class);
 
