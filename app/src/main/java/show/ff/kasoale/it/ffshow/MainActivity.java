@@ -650,30 +650,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             };
 
             threadTopRatedFilms.start();
-        } else if (id == R.id.nav_top_now_playing_films) {
-            //TODO: show now playing films
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-            // set title
-            alertDialogBuilder.setTitle("Information");
+        } else if (id == R.id.nav_top_now_upcoming_films_films) {
+            progressDialog = ProgressDialog.show(this, "Loading UpComing", "Loading the UpComing Films ...");
+            progressDialog.show();
 
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage("Not Implements Yet, sorry")
-            .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
+            Thread threadTopRatedFilms = new Thread() {
+                public void run() {
+                    SendFeedBackFFClientFilmsUpComing job = new SendFeedBackFFClientFilmsUpComing();
+
+                    try {
+                        HashMap<String, String> map = new HashMap<>();
+                        String asyncTaskResult = job.execute(map).get();
+                        if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.cancel();
+                            }
                         }
-                    });
 
+                        //**
+                        progressDialog.cancel();
 
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
+                        FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
 
-            // show it
-            alertDialog.show();
-        } else if(id == R.id.nav_top_now_upcoming_films_films){
+                        ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                        for (FilmDetail film : filmsTopRated) {
+                            logger.info(film.toString());
+                        }
+
+                        logger.info("Changing activity to Most Popular");
+                        Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                        intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                        // set the values for the next activity
+                        startActivity(intent);
+
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            threadTopRatedFilms.start();
+
+        } else if(id == R.id.nav_top_now_playing_films){
             //TODO: show upcoming films
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
