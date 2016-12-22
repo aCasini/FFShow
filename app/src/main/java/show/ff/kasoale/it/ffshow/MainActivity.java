@@ -570,21 +570,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_top_rated_films) {
             progressDialog = ProgressDialog.show(this, "Loading Top Rated", "Loading the Top Rated Films ...");
             progressDialog.show();
-/**
-            Thread thread = new Thread() {
-                public void run() {
-                    logger.info("Loading the Top Rated Films ... wait ... ");
-                    progressDialog.cancel();
-
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                }
-            };
-**/
 
             Thread threadTopRatedFilms = new Thread() {
                 public void run() {
@@ -625,11 +610,92 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             threadTopRatedFilms.start();
 
         } else if (id == R.id.nav_top_popular_films) {
-            //TODO: show the most popular films
+            progressDialog = ProgressDialog.show(this, "Loading Most Popular", "Loading the Most Popular Films ...");
+            progressDialog.show();
+
+            Thread threadTopRatedFilms = new Thread() {
+                public void run() {
+                    SendFeedBackFFClientFilmsPopular job = new SendFeedBackFFClientFilmsPopular();
+
+                    try {
+                        HashMap<String, String> map = new HashMap<>();
+                        String asyncTaskResult = job.execute(map).get();
+                        if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.cancel();
+                            }
+                        }
+
+                        //**
+                        progressDialog.cancel();
+
+                        FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
+
+                        ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                        for (FilmDetail film : filmsTopRated) {
+                            logger.info(film.toString());
+                        }
+
+                        logger.info("Changing activity to Most Popular");
+                        Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                        intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                        // set the values for the next activity
+                        startActivity(intent);
+
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            threadTopRatedFilms.start();
         } else if (id == R.id.nav_top_now_playing_films) {
             //TODO: show now playing films
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+            // set title
+            alertDialogBuilder.setTitle("Information");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Not Implements Yet, sorry")
+            .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
         } else if(id == R.id.nav_top_now_upcoming_films_films){
             //TODO: show upcoming films
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+            // set title
+            alertDialogBuilder.setTitle("Information");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Not Implements Yet, sorry")
+            .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
         } else if (id == R.id.nav_send) {
             // Set up the input
             final EditText suggest = new EditText(this);
