@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import show.ff.kasoale.it.ffshow.R;
 import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
 import show.ff.kasoale.it.ffshow.beans.Season;
+import show.ff.kasoale.it.ffshow.engine.impl.RetrievalSteamingURL;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 /**
@@ -112,7 +114,24 @@ public class FilmDetailsActivity extends AppCompatActivity {
         Picasso.with(this.getApplicationContext()).load(imagePosterFull).into(posterImage);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(filmDetail.getTitle());
+        String filmTitle = filmDetail.getTitle();
+        toolbar.setTitle(filmTitle);
+
+        //Call the webService in order to retrieval the Streaming URL
+        if(getStreamingURL() == null) {
+            RetrievalSteamingURL retrievalSteamingURL = new RetrievalSteamingURL();
+            try {
+                streamingURL = retrievalSteamingURL.execute(filmTitle).get();
+                setStreamingURL(streamingURL);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            logger.info("Streamin URL: " + streamingURL);
+        }
+        //End
 
         filmGenereTxt.setText(generi);
         filmOverviewTxt.setText(filmDetail.getOverview());

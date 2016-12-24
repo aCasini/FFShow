@@ -37,19 +37,8 @@ public class FFClient extends AbstractRESTfulClient{
             if(httpURLConnection.getResponseCode() != 200){
                 throw new RuntimeException("Failed: HTTP Error code = "+httpURLConnection.getResponseCode());
             }else{
-                //BufferedReader br = new BufferedReader(new InputStreamReader((httpURLConnection.getInputStream())));
                 jsonResponce = getStringFromInputStream(httpURLConnection.getInputStream());
-                logger.info("Responce Message: "+jsonResponce);
-
-
-                //logger.info("Output from Server .... \n");
-                //while ((outputJson = br.readLine()) != null) {
-                //    logger.info(outputJson);
-                //}
-                logger.info("Service Invoked");
             }
-
-            //logger.log(Level.INFO, httpURLConnection.getResponseMessage());
 
             super.closeHttpConnection();
 

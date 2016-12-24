@@ -2,6 +2,7 @@ package show.ff.kasoale.it.ffshow.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,14 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -20,7 +28,9 @@ import java.util.logging.Logger;
 import show.ff.kasoale.it.ffshow.R;
 import show.ff.kasoale.it.ffshow.SendFeedBackFFClientFilmDetail;
 import show.ff.kasoale.it.ffshow.actities.FilmDetailsActivity;
+import show.ff.kasoale.it.ffshow.beans.Film;
 import show.ff.kasoale.it.ffshow.beans.FilmDetail;
+import show.ff.kasoale.it.ffshow.engine.impl.RetrievalSteamingURL;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
 /**
@@ -83,12 +93,15 @@ public class FilmCardAdapterTopRated extends RecyclerView.Adapter<FilmCardAdapte
             FilmDetail film = films.get(position);
             logger.info("Clicked on FILM: "+film.getTitle());
 
-            HashMap<String, String> mapQueryParam = new HashMap<String,String>();
-            mapQueryParam.put("filmName", film.getTitle().replace(" ","+"));
-
-            SendFeedBackFFClientFilmDetail jobFilmDetail = new SendFeedBackFFClientFilmDetail();
+//            String streamingURL = null;
 
             try{
+
+                HashMap<String, String> mapQueryParam = new HashMap<String,String>();
+                mapQueryParam.put("filmName", film.getTitle().replace(" ","+"));
+
+                SendFeedBackFFClientFilmDetail jobFilmDetail = new SendFeedBackFFClientFilmDetail();
+
                 String asyncTaskResult = jobFilmDetail.execute(mapQueryParam).get();
                 logger.info("ASYNC FILM DETAIL: \n"+asyncTaskResult);
                 FilmDetail filmDetail = Utilis.json2FilmDetail(asyncTaskResult);
@@ -97,6 +110,8 @@ public class FilmCardAdapterTopRated extends RecyclerView.Adapter<FilmCardAdapte
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("FilmDetail", (Serializable) filmDetail);
                 intent.putExtra("Film", (Serializable) film);
+
+                //intent.setDataAndType(Uri.parse(streamingURL), "video/*");
 
                 context.startActivity(intent);
 
@@ -107,14 +122,6 @@ public class FilmCardAdapterTopRated extends RecyclerView.Adapter<FilmCardAdapte
                 e.printStackTrace();
             }
 
-
-
-            /**
-             Intent intent = new Intent(Intent.ACTION_VIEW);
-
-             intent.setDataAndType(Uri.parse(film.getStreamingUrl()), "video/*");
-             context.startActivity(intent);
-             **/
         }
 
         @Override
@@ -125,6 +132,9 @@ public class FilmCardAdapterTopRated extends RecyclerView.Adapter<FilmCardAdapte
 
             return false;
         }
+
     }
+
+
 
 }
