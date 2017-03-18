@@ -23,10 +23,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -60,9 +63,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ProgressDialog progressDialog;
     boolean isOpen = false;
 
+
     String result;
 
     final Context context = this;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +153,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /**
+         *  ===== Custom FloatingActionButton ======
+         */
+        ImageView icon = new ImageView(this);
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
+
+        com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton = new com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.Builder(this)
+                .setContentView(icon)
+                .build();
+
+        actionButton.setPosition(com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.POSITION_BOTTOM_LEFT, (FrameLayout.LayoutParams) actionButton.getLayoutParams());
+
+        //Create Items
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+
+        //Create the icons
+        ImageView rlIcon1 = new ImageView(this);
+        ImageView rlIcon2 = new ImageView(this);
+        ImageView rlIcon3 = new ImageView(this);
+
+        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
+        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
+        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
+
+        SubActionButton button1 = itemBuilder.setContentView(rlIcon1).build();
+        SubActionButton button2 = itemBuilder.setContentView(rlIcon2).build();
+        SubActionButton button3 = itemBuilder.setContentView(rlIcon3).build();
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .setStartAngle(-90)
+                .setEndAngle(0)
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .addSubActionView(button3)
+                // ...
+                .attachTo(actionButton)
+                .build();
 
 
     }

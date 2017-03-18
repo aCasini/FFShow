@@ -23,6 +23,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,5 +111,67 @@
     <include layout="@layout/content_films"
         android:id="@+id/include" />
 
+    <!--
+    *****
+    Floating Botton Gen
+    *****
+    -->
+<!--
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|left">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/gen_fantasy_fab"
+            android:alpha="128"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="100dp"
+            app:srcCompat="@drawable/ic_movie_black_48dp"
+            app:backgroundTint="#FFA000"
+            android:elevation="10dp"
+            app:pressedTranslationZ="12dp"
+            android:visibility="visible"
+            android:onClick="setSearchFilms"
+            />
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/gen_commedy_fab"
+            android:alpha="128"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="160dp"
+            app:srcCompat="@drawable/ic_movie_black_48dp"
+            app:backgroundTint="#FFA000"
+            android:elevation="10dp"
+            app:pressedTranslationZ="12dp"
+            android:visibility="visible"
+            android:onClick="setSearchFilms"
+            />
+        
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/gen_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="24dp"
+            app:srcCompat="@drawable/ic_label_outline_black_24dp"
+            android:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            />
+    </FrameLayout>
+-->
 
 </android.support.design.widget.CoordinatorLayout>
