@@ -49,6 +49,12 @@ import show.ff.kasoale.it.ffshow.beans.FilmDetail;
 import show.ff.kasoale.it.ffshow.beans.FilmDetailsList;
 import show.ff.kasoale.it.ffshow.beans.SerieTV;
 import show.ff.kasoale.it.ffshow.beans.SerieTvDetails;
+import show.ff.kasoale.it.ffshow.catecories.SendFeedBackFFClientFilmsAnimation;
+import show.ff.kasoale.it.ffshow.catecories.SendFeedBackFFClientFilmsCommedy;
+import show.ff.kasoale.it.ffshow.catecories.SendFeedBackFFClientFilmsFantasy;
+import show.ff.kasoale.it.ffshow.listeners.AnimationListener;
+import show.ff.kasoale.it.ffshow.listeners.CommedyListener;
+import show.ff.kasoale.it.ffshow.listeners.FantasyListener;
 import show.ff.kasoale.it.ffshow.popups.PopupSerieDetails;
 import show.ff.kasoale.it.ffshow.utils.Utilis;
 
@@ -178,20 +184,178 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
         rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_label_outline_black_24dp));
 
-        SubActionButton button1 = itemBuilder.setContentView(rlIcon1).build();
-        SubActionButton button2 = itemBuilder.setContentView(rlIcon2).build();
-        SubActionButton button3 = itemBuilder.setContentView(rlIcon3).build();
+        SubActionButton commedyButton = itemBuilder.setContentView(rlIcon1).build();
+        SubActionButton fantasyButton = itemBuilder.setContentView(rlIcon2).build();
+        SubActionButton animationButton = itemBuilder.setContentView(rlIcon3).build();
 
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .setStartAngle(-90)
                 .setEndAngle(0)
-                .addSubActionView(button1)
-                .addSubActionView(button2)
-                .addSubActionView(button3)
+                .addSubActionView(commedyButton)
+                .addSubActionView(fantasyButton)
+                .addSubActionView(animationButton)
                 // ...
                 .attachTo(actionButton)
                 .build();
 
+        //commedyButton.setOnClickListener(new CommedyListener());
+        commedyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logger.info("Clicked the Commedy Button");
+
+                final Context context = view.getContext();
+
+                progressDialog = ProgressDialog.show(context, "Loading Commedies", "Loading Commedy Films ...");
+                progressDialog.show();
+
+                final View finalView = view;
+
+                Thread threadCommedyFilms = new Thread() {
+                    public void run() {
+                        SendFeedBackFFClientFilmsCommedy job = new SendFeedBackFFClientFilmsCommedy();
+
+                        try {
+                            HashMap<String, String> map = new HashMap<>();
+                            String asyncTaskResult = job.execute(map).get();
+                            if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                                if (progressDialog != null && progressDialog.isShowing()) {
+                                    progressDialog.cancel();
+                                }
+                            }
+
+                            //**
+                            progressDialog.cancel();
+
+                            FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
+
+                            ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                            for (FilmDetail film : filmsTopRated) {
+                                logger.info(film.toString());
+                            }
+
+                            logger.info("Changing activity to Commedy");
+                            Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                            intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                            // set the values for the next activity
+                            startActivity(intent);
+
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                threadCommedyFilms.start();
+            }
+        });
+
+        //fantasyButton.setOnClickListener(new FantasyListener());
+        fantasyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logger.info("Clicked the Fantasy Button");
+
+                final Context context = view.getContext();
+
+                progressDialog = ProgressDialog.show(context, "Loading Fantasy", "Loading Fantasy Films ...");
+                progressDialog.show();
+
+                final View finalView = view;
+
+                Thread threadCommedyFilms = new Thread() {
+                    public void run() {
+                        SendFeedBackFFClientFilmsFantasy job = new SendFeedBackFFClientFilmsFantasy();
+
+                        try {
+                            HashMap<String, String> map = new HashMap<>();
+                            String asyncTaskResult = job.execute(map).get();
+                            if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                                if (progressDialog != null && progressDialog.isShowing()) {
+                                    progressDialog.cancel();
+                                }
+                            }
+
+                            //**
+                            progressDialog.cancel();
+
+                            FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
+
+                            ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                            for (FilmDetail film : filmsTopRated) {
+                                logger.info(film.toString());
+                            }
+
+                            logger.info("Changing activity to Fantasy");
+                            Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                            intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                            // set the values for the next activity
+                            startActivity(intent);
+
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                threadCommedyFilms.start();
+            }
+        });
+
+        //animationButton.setOnClickListener(new AnimationListener());
+        animationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logger.info("Clicked the Animation Button");
+
+                final Context context = view.getContext();
+
+                progressDialog = ProgressDialog.show(context, "Loading Animation", "Loading Animation Films ...");
+                progressDialog.show();
+
+                final View finalView = view;
+
+                Thread threadCommedyFilms = new Thread() {
+                    public void run() {
+                        SendFeedBackFFClientFilmsAnimation job = new SendFeedBackFFClientFilmsAnimation();
+
+                        try {
+                            HashMap<String, String> map = new HashMap<>();
+                            String asyncTaskResult = job.execute(map).get();
+                            if (asyncTaskResult == null || asyncTaskResult.equals("")) {
+                                if (progressDialog != null && progressDialog.isShowing()) {
+                                    progressDialog.cancel();
+                                }
+                            }
+
+                            //**
+                            progressDialog.cancel();
+
+                            FilmDetailsList filmDetailsList = Utilis.json2FilmDetailsList(asyncTaskResult);
+
+                            ArrayList<FilmDetail> filmsTopRated = filmDetailsList.getFilmsDetails();
+                            for (FilmDetail film : filmsTopRated) {
+                                logger.info(film.toString());
+                            }
+
+                            logger.info("Changing activity to Animation");
+                            Intent intent = new Intent(context, FilmsTopRatedActivity.class);
+
+                            intent.putExtra("FilmDetailList", (Serializable) filmDetailsList);
+                            // set the values for the next activity
+                            startActivity(intent);
+
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                threadCommedyFilms.start();
+            }
+        });
 
     }
 
